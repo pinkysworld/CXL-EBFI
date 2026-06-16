@@ -1,0 +1,37 @@
+CXL-EBFI bounded crash-recovery model results
+Run date: 2026-06-14
+Tool: TLC2 Version 2026.05.26.235334
+Model: CXL_EBFI_CrashRecovery.tla
+
+Correct configuration
+  Config: CXL_EBFI_CrashRecovery.cfg
+  Bound: MaxCtr = 3
+  Generated states: 249
+  Distinct states: 150
+  Search depth: 13
+  Result: no invariant violation
+  Checked properties: durable publication, persistent-counter monotonicity,
+  nonce non-reuse, and redo references to durable ciphertext.
+
+Weak persistent-counter ablation
+  Config: CXL_EBFI_CrashRecovery_WeakCounter.cfg
+  Counterexample depth: 6
+  Generated states before violation: 22
+  Distinct states before violation: 15
+  Result: CounterPersistenceInv violated. Reserve(1), Encrypt, Abort,
+  Reserve(1), Encrypt reuses the same nonce after the weak abort path
+  rolls the high-watermark back.
+
+Early-publication ablation
+  Config: CXL_EBFI_CrashRecovery_EarlyPublish.cfg
+  Counterexample depth: 3
+  Generated states before violation: 5
+  Distinct states before violation: 5
+  Result: DurablePublicationInv violated. Publish makes descriptor version 1
+  visible before ciphertext version 1 is in the durable set.
+
+Scope
+  The model covers one abstract line, a bounded counter, reservation intent,
+  ciphertext durability, redo preparation, descriptor publication, cleanup,
+  crash, and recovery. It does not model cryptographic primitives, byte-level
+  persistence, distributed erasure, scalable metadata, or the physical journal.

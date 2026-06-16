@@ -1,0 +1,44 @@
+================================================================================
+CXL-EBFI bounded reservation/ticket protocol model
+Tool: TLC2 release v1.8.0, run June 13, 2026
+Module: CXL_EBFI_Protocol.tla
+Bounds: Writers={1,2}, Lines={1,2}, Rids={1,2}, MaxCtr=2
+================================================================================
+
+CORRECT CONFIGURATION
+  AtomicReservation = TRUE
+  StrictTicketBinding = TRUE
+
+Result:
+  Model checking completed. No error has been found.
+  1,338,445 states generated
+  177,147 distinct states found
+  0 states left on queue
+  Complete-state-graph depth: 15
+
+Checked invariant:
+  Type correctness, reservation uniqueness, no nonce reuse,
+  no cross-owner/cross-line ticket acceptance, and committed counter
+  bounded by the atomic allocator.
+
+NON-ATOMIC RESERVATION ABLATION
+  AtomicReservation = FALSE
+  StrictTicketBinding = TRUE
+
+Result:
+  Invariant violated at depth 3 after writer 1 and writer 2 both reserve
+  counter 1 before either commits. This is the duplicate-reservation /
+  nonce-reuse counterexample.
+
+WEAK TICKET-BINDING ABLATION
+  AtomicReservation = TRUE
+  StrictTicketBinding = FALSE
+
+Result:
+  Invariant violated at depth 4: writer/TVE 1 has an outstanding read for
+  line 1, but a ticket owned by writer/TVE 2 is accepted. The same weakened
+  guard also permits cross-line acceptance.
+
+These are complete enumerations only for the committed finite bounds. The
+module abstracts AEAD and distributed erasure, which are exercised by the
+Python artifacts.

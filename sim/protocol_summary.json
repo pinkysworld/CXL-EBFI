@@ -1,0 +1,15 @@
+{
+  "seeds": 30,
+  "steps_per_seed": 4000,
+  "honest_reads": 75640,
+  "honest_reads_accepted": 75640,
+  "attacks": 1374,
+  "attacks_accepted": 0,
+  "stale_ciphertext_attacks": 347,
+  "consumed_ticket_replays": 347,
+  "cross_line_ticket_attacks": 356,
+  "forged_ticket_attacks": 324,
+  "concurrent_write_pairs": 1433,
+  "stale_commits_rejected": 705,
+  "nonce_reuses": 0
+}

@@ -1,0 +1,2 @@
+PASS: EBFI metadata controller RTL regression
+tb_ebfi_metadata_ctrl.sv:203: $finish called at 470000 (1ps)

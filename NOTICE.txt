@@ -1,0 +1,6 @@
+Copyright 2026 Michel Nguyen.
+
+The enclosed artifact is supplied for peer review and reproducibility of the
+submitted manuscript. Third-party components, including gem5 and TLA+ tools,
+remain under their respective licenses and are not redistributed as binaries in
+this package. No patent or production-use license is implied by submission.

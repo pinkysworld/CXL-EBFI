@@ -1,0 +1,11 @@
+{
+  "ticket_before_epoch_advance_accepts": 1,
+  "consumed_ticket_replays_rejected": 1,
+  "reservation_expiry_scenarios": 2,
+  "late_actions_after_expiry_rejected": 2,
+  "three_writer_schedules": 11760,
+  "three_writer_nonce_reuses": 0,
+  "three_writer_monotonicity_failures": 0,
+  "three_writer_accounting_failures": 0,
+  "stale_commits_rejected": 1596
+}

@@ -1,0 +1,32 @@
+{
+  "design": "ebfi_metadata_ctrl",
+  "configuration": {
+    "num_lines": 16,
+    "num_slots": 4,
+    "num_epochs": 8,
+    "counter_bits": 32,
+    "writer_bits": 8,
+    "generation_bits": 8,
+    "retention_window": 2
+  },
+  "tools": {
+    "iverilog": "13.0",
+    "yosys": "0.66"
+  },
+  "simulation": {
+    "status": "pass",
+    "testbench": "tb_ebfi_metadata_ctrl.sv"
+  },
+  "generic_synthesis": {
+    "total_cells": 8976,
+    "sequential_cells": 1779,
+    "combinational_cells": 7197,
+    "and": 4379,
+    "mux": 313,
+    "not": 209,
+    "or": 2128,
+    "xnor": 77,
+    "xor": 91
+  },
+  "scope": "Generic logic only; no SRAM macros, AES-GCM, HMAC, CXL/IDE, persistence journal, process library, timing, power, or production area estimate."
+}

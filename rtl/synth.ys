@@ -1,0 +1,12 @@
+read_verilog -sv ebfi_metadata_ctrl.sv
+hierarchy -check -top ebfi_metadata_ctrl
+proc
+opt
+memory
+opt
+techmap
+opt
+abc -g AND,OR,XOR,XNOR,MUX
+clean
+stat -top ebfi_metadata_ctrl
+write_json results/ebfi_metadata_ctrl_generic.json

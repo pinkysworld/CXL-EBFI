@@ -1,0 +1,91 @@
+================================================================================
+ACTUAL TLC run log -- CXL-EBFI counter-freshness model.
+Tool: TLC2 Version 2.19 (08 Aug 2024).  Module CXL_EBFI_Invariant.tla
+Bounds: Hosts={1,2} Addrs={1,2} MaxEpoch=3 MaxCtr=2 RetentionW=2.  2026-06-13T07:42:12Z
+Attacker replays only versions that existed (e<=epoch, c<=lineCtr); writes
+forbidden at MaxCtr (counter-exhaustion -> forced ratchet).
+================================================================================
+
+### RUN 1 -- StrictCounter = TRUE (correct CXL-EBFI design)
+### Expected: EBFI (counter-freshness) + NoAcceptUnderErasedKey hold over ALL
+### reachable states (full enumeration).
+
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 83 and seed 6544884956961129169 with 1 worker on 4 cores with 869MB heap and 64MB offheap memory [pid: 5] (Linux 6.8.0-124-generic aarch64, Ubuntu 11.0.31 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /tmp/CXL_EBFI_Invariant.tla
+Parsing file /tmp/Naturals.tla
+Parsing file /tmp/FiniteSets.tla
+Parsing file /tmp/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module CXL_EBFI_Invariant
+Starting... (2026-06-13 07:42:12)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-06-13 07:42:12.
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 5.0E-10
+  based on the actual fingerprints:  val = 7.4E-12
+615615 states generated, 15345 distinct states found, 0 states left on queue.
+The depth of the complete state graph search is 11.
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 7 and the 95th percentile is 3).
+Finished in 01s at (2026-06-13 07:42:13)
+
+================================================================================
+
+### RUN 2 -- StrictCounter = FALSE (prior epoch-only rule: counter unchecked)
+### Expected: Inv violated by a SAME-EPOCH ROLLBACK -- a response with the
+### line's current epoch but a smaller (historical) counter is accepted.
+
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 85 and seed 6954745386737637565 with 1 worker on 4 cores with 869MB heap and 64MB offheap memory [pid: 33] (Linux 6.8.0-124-generic aarch64, Ubuntu 11.0.31 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /tmp/CXL_EBFI_Invariant.tla
+Parsing file /tmp/Naturals.tla
+Parsing file /tmp/FiniteSets.tla
+Parsing file /tmp/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module CXL_EBFI_Invariant
+Starting... (2026-06-13 07:42:14)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-06-13 07:42:14.
+Error: Invariant Inv is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ usableKeys = {1}
+/\ epoch = 1
+/\ lastAccept = ( <<1, 1>> :> [none |-> TRUE] @@
+  <<1, 2>> :> [none |-> TRUE] @@
+  <<2, 1>> :> [none |-> TRUE] @@
+  <<2, 2>> :> [none |-> TRUE] )
+/\ lineEpoch = <<1, 1>>
+/\ lineCtr = <<0, 0>>
+
+State 2: <Write line 95, col 3 to line 98, col 50 of module CXL_EBFI_Invariant>
+/\ usableKeys = {1}
+/\ epoch = 1
+/\ lastAccept = ( <<1, 1>> :> [none |-> TRUE] @@
+  <<1, 2>> :> [none |-> TRUE] @@
+  <<2, 1>> :> [none |-> TRUE] @@
+  <<2, 2>> :> [none |-> TRUE] )
+/\ lineEpoch = <<1, 1>>
+/\ lineCtr = <<1, 0>>
+
+State 3: <ReadAccept line 127, col 3 to line 130, col 58 of module CXL_EBFI_Invariant>
+/\ usableKeys = {1}
+/\ epoch = 1
+/\ lastAccept = ( <<1, 1>> :>
+      [e |-> 1, c |-> 0, lineEpAt |-> 1, lineCtrAt |-> 1, usable |-> TRUE] @@
+  <<1, 2>> :> [none |-> TRUE] @@
+  <<2, 1>> :> [none |-> TRUE] @@
+  <<2, 2>> :> [none |-> TRUE] )
+/\ lineEpoch = <<1, 1>>
+/\ lineCtr = <<1, 0>>
+
+41 states generated, 19 distinct states found, 15 states left on queue.
+The depth of the complete state graph search is 3.
+The average outdegree of the complete state graph is 7 (minimum is 7, the maximum 7 and the 95th percentile is 7).
+Finished in 00s at (2026-06-13 07:42:14)
