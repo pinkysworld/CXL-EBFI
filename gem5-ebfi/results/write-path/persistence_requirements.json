@@ -1,0 +1,38 @@
+[
+  {
+    "max_shared_issue_interval_ns": 48.54745999689297,
+    "min_group_commit_writes": 5,
+    "min_inflight_operations": 5,
+    "offered_writes_per_us": 10.299199999999999,
+    "persistence_latency_ns": 200.0,
+    "request_period_ns": 20.0,
+    "serial_capacity_writes_per_us": 2.5
+  },
+  {
+    "max_shared_issue_interval_ns": 48.54745999689297,
+    "min_group_commit_writes": 21,
+    "min_inflight_operations": 21,
+    "offered_writes_per_us": 10.299199999999999,
+    "persistence_latency_ns": 1000.0,
+    "request_period_ns": 20.0,
+    "serial_capacity_writes_per_us": 0.5
+  },
+  {
+    "max_shared_issue_interval_ns": 244.04529480671613,
+    "min_group_commit_writes": 1,
+    "min_inflight_operations": 1,
+    "offered_writes_per_us": 2.0488,
+    "persistence_latency_ns": 200.0,
+    "request_period_ns": 100.0,
+    "serial_capacity_writes_per_us": 2.5
+  },
+  {
+    "max_shared_issue_interval_ns": 244.04529480671613,
+    "min_group_commit_writes": 5,
+    "min_inflight_operations": 5,
+    "offered_writes_per_us": 2.0488,
+    "persistence_latency_ns": 1000.0,
+    "request_period_ns": 100.0,
+    "serial_capacity_writes_per_us": 0.5
+  }
+]
